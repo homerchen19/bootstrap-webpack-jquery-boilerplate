@@ -19,10 +19,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
-      DEV_MODE
-        ? {
-            test: /\.css/,
-            use: [
+      {
+        test: /\.scss$/,
+        use: DEV_MODE
+          ? [
               'style-loader',
               {
                 loader: 'css-loader',
@@ -30,15 +30,18 @@ module.exports = {
                   sourceMap: true,
                 },
               },
-            ],
-          }
-        : {
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true,
+                },
+              },
+            ]
+          : ExtractTextPlugin.extract({
               fallback: 'style-loader',
-              use: ['css-loader'],
+              use: ['css-loader', 'sass-loader'],
             }),
-          },
+      },
       {
         test: /\.(jpe?g|png|gif)$/,
         loader: 'file-loader',
