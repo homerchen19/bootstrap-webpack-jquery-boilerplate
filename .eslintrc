@@ -1,0 +1,23 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "prettier"],
+  "globals": {
+    "chrome": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true
+      }
+    ],
+    "no-console": "off"
+  },
+  "plugins": ["jquery", "babel", "prettier"]
+}
