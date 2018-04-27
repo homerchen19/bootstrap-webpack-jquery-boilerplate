@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
 
@@ -52,12 +53,19 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
     }),
     new HtmlWebPackPlugin({
       template: 'index.html',
+      favicon: './src/assets/icon.ico',
+      minify: !DEV_MODE && {
+        collapseWhitespace: true,
+        preserveLineBreaks: true,
+        removeComments: true,
+      },
     }),
     new ExtractTextPlugin('styles.css'),
   ],

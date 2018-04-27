@@ -28,6 +28,7 @@
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
