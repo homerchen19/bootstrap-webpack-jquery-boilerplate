@@ -1,8 +1,16 @@
 # Boostrap + Webpack + JQuery Boilerplate
 
-> Build landing page with **Boostrap** and **jQuery**.
+> Build landing page with **Boostrap** and **jQuery** is so easy.
 
-## About JavaScript, all you need is...
+## Why ?
+
+React is awesome, and I use it everyday.
+
+However, not each project needs such a complicated library. jQuery and bootstrap are good enough.
+
+Hence, this repo is suitable for simple projects.
+
+## About DOM manipulation, all you need is...
 
 #### 🤩 jQuery
 

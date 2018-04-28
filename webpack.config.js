@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
 
@@ -44,11 +45,38 @@ module.exports = {
             }),
       },
       {
-        test: /\.(jpe?g|png|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: 'public/[name].[ext]?[hash:7]',
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              mozjpeg: {
+                progressive: true,
+                quality: 75,
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              attrs: [':data-src'],
+              minimize: true,
+            },
+          },
+        ],
       },
     ],
   },
@@ -57,10 +85,17 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
+      'windows.jQuery': 'jquery',
     }),
+    new CopyWebpackPlugin([
+      {
+        from: './public',
+        to: 'public',
+      },
+    ]),
     new HtmlWebPackPlugin({
       template: 'index.html',
-      favicon: './src/assets/icon.ico',
+      favicon: './public/icon.ico',
       minify: !DEV_MODE && {
         collapseWhitespace: true,
         preserveLineBreaks: true,
