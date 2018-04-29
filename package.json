@@ -2,6 +2,7 @@
   "name": "bootstrap-webpack-jquery-boilerplate",
   "license": "MIT",
   "author": "xxhomey19",
+  "homepage": "https://xxhomey19.github.io/bootstrap-webpack-jquery-boilerplate/",
   "repository": {
     "type": "git",
     "url": "https://github.com/xxhomey19/bootstrap-webpack-jquery-boilerplate/tree/master"
@@ -14,6 +15,8 @@
   "scripts": {
     "build": "webpack -p --progress --mode production --config webpack.config.js",
     "precommit": "lint-staged",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --open --mode development --config webpack.config.js",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix"
@@ -41,6 +44,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "gh-pages": "^1.1.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.0.7",
     "husky": "^0.14.3",
