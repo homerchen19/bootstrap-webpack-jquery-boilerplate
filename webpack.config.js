@@ -4,11 +4,12 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const DEV_MODE = process.env.NODE_ENV === 'dev';
+const IS_DEV = process.env.NODE_ENV === 'dev';
 
-module.exports = {
-  devtool: DEV_MODE ? 'eval' : 'source-map',
+const config = {
+  devtool: IS_DEV ? 'eval' : 'source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -23,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: DEV_MODE
+        use: IS_DEV
           ? [
               'style-loader',
               {
@@ -96,7 +97,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: 'index.html',
       favicon: './public/icon.ico',
-      minify: !DEV_MODE && {
+      minify: !IS_DEV && {
         collapseWhitespace: true,
         preserveLineBreaks: true,
         removeComments: true,
@@ -105,3 +106,13 @@ module.exports = {
     new ExtractTextPlugin('styles.css'),
   ],
 };
+
+if (!IS_DEV) {
+  config.plugins.push(
+    new UglifyJsPlugin({
+      sourceMap: false,
+    })
+  );
+}
+
+module.exports = config;
