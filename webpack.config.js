@@ -9,6 +9,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
 const config = {
+  mode: IS_DEV ? 'development' : 'production',
   devtool: IS_DEV ? 'eval' : 'source-map',
   entry: './src/index.js',
   output: {
