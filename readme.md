@@ -50,6 +50,7 @@ Let's go!
 
 ```
 $ git clone https://github.com/xxhomey19/bootstrap-webpack-jquery-boilerplate.git
+$ cd bootstrap-webpack-jquery-boilerplate
 $ yarn // or npm install
 ```
 
