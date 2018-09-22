@@ -13,8 +13,8 @@ const config = {
   devtool: IS_DEV ? 'eval' : 'source-map',
   entry: './src/index.js',
   output: {
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
   },
   module: {
     rules: [
@@ -105,11 +105,27 @@ const config = {
       },
     }),
     new ExtractTextPlugin('styles.css'),
+    new webpack.HashedModuleIdsPlugin(),
   ],
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10,
+          enforce: true,
+        },
+      },
+    },
+    minimizer: [],
+  },
 };
 
 if (!IS_DEV) {
-  config.plugins.push(
+  config.optimization.minimizer.push(
     new UglifyJsPlugin({
       sourceMap: false,
     })
