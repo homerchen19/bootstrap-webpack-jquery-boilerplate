@@ -38,11 +38,11 @@ Hence, this repo is suitable for simple projects.
 
 ## Features
 
-* **Bootstrap** and **jQuery** installed
-* Hot Module Replacement (**HMR**)
-* Support **ES6** Syntax
-* **ESLint** + **Prettier** = **Neat Coding Style**
-* Webpack production building
+- **Bootstrap** and **jQuery** installed
+- Hot Module Replacement (**HMR**)
+- Support **ES6** Syntax (**Babel 7**)
+- **ESLint** + **Prettier** = **Neat Coding Style**
+- Webpack production building (**code splitting, cache**)
 
 ## Download and Install
 
