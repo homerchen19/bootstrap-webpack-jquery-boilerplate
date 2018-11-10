@@ -3,18 +3,16 @@ const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
 const config = {
   mode: IS_DEV ? 'development' : 'production',
   devtool: IS_DEV ? 'eval' : 'source-map',
-  entry: './src/index.js',
+  entry: './src/js/index.js',
   output: {
-    filename: '[name].[hash].js',
+    filename: 'js/[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -82,7 +80,7 @@ const config = {
       },
     ]),
     new HtmlWebPackPlugin({
-      template: 'index.html',
+      template: './src/index.html',
       favicon: './public/icon.ico',
       minify: !IS_DEV && {
         collapseWhitespace: true,
@@ -91,11 +89,22 @@ const config = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: IS_DEV ? 'css/[name].css' : 'css/[name].[contenthash].css',
+      chunkFilename: 'css/[id].css',
     }),
     new webpack.HashedModuleIdsPlugin(),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, 'src'),
+    watchContentBase: true,
+    compress: true,
+    port: 8080,
+    open: true,
+    host: 'localhost',
+    index: './src/index.html',
+    inline: true,
+    hot: true,
+  },
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
@@ -114,6 +123,9 @@ const config = {
 };
 
 if (!IS_DEV) {
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+  const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
   config.optimization.minimizer.push(
     new UglifyJsPlugin({
       sourceMap: false,
