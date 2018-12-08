@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const CssUrlRelativePlugin = require('css-url-relative-plugin');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
@@ -38,7 +39,9 @@ const config = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              name: 'public/[name].[ext]?[hash:7]',
+              name: '[name].[ext]',
+              fallback: 'file-loader',
+              outputPath: 'public/images',
             },
           },
           {
@@ -81,8 +84,8 @@ const config = {
       },
     ]),
     new HtmlWebPackPlugin({
-      template: './src/index.html',
-      favicon: './public/icon.ico',
+      template: path.resolve(__dirname, './src/index.html'),
+      favicon: path.resolve(__dirname, './public/icon.ico'),
       minify: !IS_DEV && {
         collapseWhitespace: true,
         preserveLineBreaks: true,
@@ -97,17 +100,10 @@ const config = {
     new PreloadWebpackPlugin({
       include: 'initial',
     }),
+    new CssUrlRelativePlugin(),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'src'),
-    watchContentBase: true,
-    compress: true,
-    port: 8080,
-    open: true,
-    host: 'localhost',
-    index: './src/index.html',
-    inline: true,
-    hot: true,
   },
   optimization: {
     runtimeChunk: 'single',
