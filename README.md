@@ -42,7 +42,7 @@ Hence, this repo is suitable for simple projects.
 - Hot Module Replacement (**HMR**)
 - Support **ES6** Syntax (**Babel 7**)
 - **ESLint** + **Prettier** = **Neat Coding Style**
-- Webpack production building (**code splitting, cache, lazy-loading**)
+- Webpack production building (**code splitting**, **cache**, **lazy-loading** and [**Terser**](https://github.com/terser-js/terser))
 
 ## Download and Install
 

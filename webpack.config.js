@@ -123,13 +123,11 @@ const config = {
 };
 
 if (!IS_DEV) {
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+  const TerserPlugin = require('terser-webpack-plugin');
   const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
   config.optimization.minimizer.push(
-    new UglifyJsPlugin({
-      sourceMap: false,
-    }),
+    new TerserPlugin(),
     new OptimizeCSSAssetsPlugin({})
   );
 }
