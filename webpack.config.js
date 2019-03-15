@@ -47,10 +47,21 @@ const config = {
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug: true,
               mozjpeg: {
-                progressive: true,
-                quality: 75,
+                mozjpeg: {
+                  progressive: true,
+                  quality: 65,
+                },
+                pngquant: {
+                  quality: '65-90',
+                  speed: 4,
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                webp: {
+                  quality: 75,
+                },
               },
             },
           },
@@ -71,7 +82,7 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
