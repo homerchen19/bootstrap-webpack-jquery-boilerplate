@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/xxhomey19/bootstrap-webpack-jquery-boilerplate/issues"
   },
-  "version": "1.6.1",
+  "version": "1.6.2",
   "scripts": {
     "build": "webpack -p --progress --mode production --config webpack.config.js",
     "predeploy": "npm run build",
