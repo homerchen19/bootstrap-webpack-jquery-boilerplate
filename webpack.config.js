@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CssUrlRelativePlugin = require('css-url-relative-plugin');
+const glob = require('glob');
 
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
@@ -94,15 +95,6 @@ const config = {
         to: 'public',
       },
     ]),
-    new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, './src/index.html'),
-      favicon: path.resolve(__dirname, './src/public/icon.ico'),
-      minify: !IS_DEV && {
-        collapseWhitespace: true,
-        preserveLineBreaks: true,
-        removeComments: true,
-      },
-    }),
     new MiniCssExtractPlugin({
       filename: IS_DEV ? 'css/[name].css' : 'css/[name].[contenthash].css',
       chunkFilename: 'css/[id].css',
@@ -142,5 +134,21 @@ if (!IS_DEV) {
     new OptimizeCSSAssetsPlugin({})
   );
 }
+
+const files = glob.sync(process.cwd() + '/src/*.html');
+
+files.forEach(file => {
+  config.plugins.push(
+    new HtmlWebPackPlugin({
+      template: file,
+      favicon: path.resolve(__dirname, './src/public/icon.ico'),
+      minify: !IS_DEV && {
+        collapseWhitespace: true,
+        preserveLineBreaks: true,
+        removeComments: true,
+      },
+    })
+  );
+});
 
 module.exports = config;
