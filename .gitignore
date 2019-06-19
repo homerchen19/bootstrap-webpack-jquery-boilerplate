@@ -1,3 +1,9 @@
+# Node.js related files
 node_modules/
 dist/
+package-lock.json
+
+# OS generated files
 .DS_Store
+.Trashes
+Thumbs.db
