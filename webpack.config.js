@@ -135,11 +135,12 @@ if (!IS_DEV) {
   );
 }
 
-const files = glob.sync(process.cwd() + '/src/*.html');
+const files = glob.sync('./src/*.html');
 
 files.forEach(file => {
   config.plugins.push(
     new HtmlWebPackPlugin({
+      filename: path.basename(file),
       template: file,
       favicon: path.resolve(__dirname, './src/public/icon.ico'),
       minify: !IS_DEV && {
