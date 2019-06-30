@@ -28,7 +28,12 @@ const config = {
       {
         test: /\.scss$/,
         use: [
-          IS_DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: IS_DEV,
+            },
+          },
           'css-loader',
           'sass-loader',
         ],
@@ -49,33 +54,19 @@ const config = {
             loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
-                mozjpeg: {
-                  progressive: true,
-                  quality: 65,
-                },
-                pngquant: {
-                  quality: '65-90',
-                  speed: 4,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                webp: {
-                  quality: 75,
-                },
+                progressive: true,
+                quality: 65,
               },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              attrs: [':data-src'],
-              minimize: true,
+              pngquant: {
+                quality: '65-90',
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75,
+              },
             },
           },
         ],
@@ -143,11 +134,7 @@ files.forEach(file => {
       filename: path.basename(file),
       template: file,
       favicon: path.resolve(__dirname, './src/public/icon.ico'),
-      minify: !IS_DEV && {
-        collapseWhitespace: true,
-        preserveLineBreaks: true,
-        removeComments: true,
-      },
+      minify: !IS_DEV,
     })
   );
 });
