@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["eslint:recommended", "prettier", "plugin:no-jquery/deprecated-3.4"],
   "globals": {
     "chrome": true
   },
@@ -19,5 +19,5 @@
     ],
     "no-console": "off"
   },
-  "plugins": ["jquery", "babel", "prettier"]
+  "plugins": ["no-jquery", "babel", "prettier"]
 }
