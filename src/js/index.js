@@ -2,7 +2,7 @@ import 'bootstrap';
 
 import '../scss/index.scss';
 
-$('#alert').click(() => {
+$('#alert').on('click', () => {
   alert('jQuery works!');
 });
 
