@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "prettier", "plugin:no-jquery/deprecated-3.4"],
+  "extends": ["eslint:recommended", "prettier", "plugin:no-jquery/deprecated-3.5"],
   "globals": {
     "chrome": true
   },
