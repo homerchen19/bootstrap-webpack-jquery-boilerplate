@@ -78,7 +78,7 @@ const config = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      'windows.jQuery': 'jquery',
+      'window.jQuery': 'jquery',
     }),
     new CopyWebpackPlugin([
       {
