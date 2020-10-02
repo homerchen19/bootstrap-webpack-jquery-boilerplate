@@ -12,18 +12,20 @@
   },
   "version": "1.6.4",
   "scripts": {
-    "build": "webpack -p --progress --mode production --config webpack.config.js",
-    "predeploy": "npm run build",
+    "build": "npx webpack -p --progress --mode production --config webpack.config.js",
+    "predeploy": "npm run build && npm run purge",
     "deploy": "gh-pages -d dist",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --config webpack.config.js",
     "lint": "eslint src/js",
     "lint:fix": "npm run lint -- --fix",
+    "purge": "npx purgecss --config purgecss.config.js --output dist/css",
     "start": "npm run dev"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
     "jquery": "^3.5.1",
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "purgecss": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
