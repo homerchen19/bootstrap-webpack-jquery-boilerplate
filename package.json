@@ -13,11 +13,12 @@
   "version": "1.6.4",
   "scripts": {
     "build": "webpack -p --progress --mode production --config webpack.config.js",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && npm run purge",
     "deploy": "gh-pages -d dist",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --open --config webpack.config.js",
     "lint": "eslint src/js",
     "lint:fix": "npm run lint -- --fix",
+    "purge": "purgecss --config purgecss.config.js --output dist/css",
     "start": "npm run dev"
   },
   "dependencies": {
